@@ -11,5 +11,5 @@
     catch(mysqli_sql_exception $e){
         die("Can't connect to database: {$e->getMessage()}");
     }
-
+    
 ?>
