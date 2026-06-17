@@ -65,8 +65,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../assets/css/style_login_admin.css">
-    <title>Document</title>
+    <link rel="stylesheet" href="/web_ban_hang/admin/assets/css/style_login.css">
+    <title>Đăng nhập</title>
 </head>
 <body>
     <h3>Quản lý cửa hàng</h3>

@@ -7,8 +7,8 @@ require_once("includes/check_admin_alive.php");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/web_ban_hang/assets/css/style_main_admin.css">
-    <title>Document</title>
+    <link rel="stylesheet" href="/web_ban_hang/admin/assets/css/style_main.css">
+    <title>Trang chủ</title>
 </head>
 
 
