@@ -30,7 +30,7 @@ body {
 }
 /* ---------------------- nav ----------------------- */
 nav {
-  background-color: rgb(223, 60, 71);
+  background: linear-gradient(to top, rgb(223, 60, 71), rgb(233, 95, 105));
 
   margin: 0;
 }
@@ -354,7 +354,11 @@ nav ul .location-list li {
   animation-name: fade;
   animation-duration: 1.5s;
 }
-
+.img-banner {
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
 @keyframes fade {
   from {
     opacity: 0.4;
@@ -362,4 +366,91 @@ nav ul .location-list li {
   to {
     opacity: 1;
   }
+}
+/* ------------------- Wrapper cho toàn bộ khối Banner ------------------------*/
+/* ------------------- Wrapper cho toàn bộ khối Banner ------------------------*/
+.main-banner-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: stretch; /* Ép 2 cột bên và cột giữa cao bằng nhau */
+  max-width: 1200px;
+  margin: 20px auto 0 auto;
+  gap: 15px; /* Khoảng cách giữa các cột */
+  padding: 0 15px;
+  height: 380px;
+}
+
+/* ------------------- Banner 2 bên dọc ------------------------*/
+.side-banner {
+  flex: 0 0 250px; /* Chiều rộng cố định 250px cho banner trái/phải */
+  display: flex;
+}
+
+.img-side {
+  width: 100%;
+  height: 111%;
+  object-fit: cover;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* ------------------- CỘT GIỮA ------------------------*/
+.center-column {
+  flex: 1; /* Lấp đầy khoảng trống còn lại ở giữa */
+  display: flex;
+  flex-direction: column; /* Xếp Slideshow ở trên, 3 banner nhỏ ở dưới */
+  gap: 15px; /* Khoảng cách giữa slide trên và 3 ảnh dưới */
+  min-width: 0; /* Tránh lỗi tràn layout trên màn hình nhỏ */
+}
+
+/* --- Slide Show --- */
+.slideshow-container {
+  flex: 1; /* Slide tự động giãn cao để khớp với chiều cao tổng thể */
+  margin: 0;
+  max-width: none;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.slideshow-container .slide {
+  height: 100%;
+  width: 100%;
+}
+
+.img-banner {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Đảm bảo ảnh slide không bị méo */
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.1); /* Làm mờ viền đi một chút cho sang */
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  display: block;
+}
+
+/* --- 3 Banner nhỏ bên dưới Slide --- */
+.sub-banners {
+  display: flex;
+  gap: 15px; /* Khoảng cách giữa 3 ảnh nhỏ */
+  height: 130px; /* Đặt chiều cao cố định cho hàng 3 ảnh (Bạn có thể tăng giảm tùy ý) */
+}
+
+.sub-banner-item {
+  flex: 1; /* Chia đều độ rộng cho 3 ảnh */
+  height: 100%;
+}
+
+.sub-banner-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  display: block;
+  transition: transform 0.3s ease; /* Hiệu ứng nhẹ khi hover */
+}
+
+.sub-banner-item img:hover {
+  transform: translateY(-3px); /* Hover chuột vào sẽ nảy ảnh lên 1 xíu */
 }

@@ -1,45 +1,46 @@
 <main class="main-content">
-        <div class="slideshow-container">
-                <div class="slide fade">
-                        <div class="numbertext">
-                                1 / 3
-                        </div>
-                        <img src="assets/image/iPhone17ProMax_slide.webp" style="width : 100%">
-
-                </div>
-                  <div class="slide fade">
-                        <div class="numbertext">
-                                2 / 3
-                        </div>
-                        <img src="assets/image/Oppofin x9 ultra_slide.webp" style="width : 100%">
-                        
-                </div>
-                  <div class="slide fade">
-                        <div class="numbertext">
-                                3 / 3
-                        </div>
-                        <img src="assets/image/samsung-galaxy-slide.webp" style="width : 100%">
-                        
-                </div>
+    <div class="main-banner-wrapper">
         
+        <div class="side-banner banner-left">
+            <img class="img-side" src="assets/image/bannerleft.jpg" alt="Banner điện thoại trái">
         </div>
-        <br>
-        
+
+        <div class="center-column">
+            
+            <div class="slideshow-container">
+                <div class="slide fade">
+                    <div class="numbertext">1 / 3</div>
+                    <img class="img-banner" src="assets/image/iPhone17ProMax_slide.webp" alt="Slide 1">
+                </div>
+                <div class="slide fade">
+                    <div class="numbertext">2 / 3</div>
+                    <img class="img-banner" src="assets/image/Oppofin x9 ultra_slide.webp" alt="Slide 2">
+                </div>
+                <div class="slide fade">
+                    <div class="numbertext">3 / 3</div>
+                    <img class="img-banner" src="assets/image/samsung-galaxy-slide.webp" alt="Slide 3">
+                </div>
+            </div>
+
+            <div class="sub-banners">
+                <div class="sub-banner-item">
+                    <img src="https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=500&auto=format&fit=crop" alt="Sub banner 1">
+                </div>
+                <div class="sub-banner-item">
+                    <img src="https://images.unsplash.com/photo-1598327105666-5b89351cb31b?w=500&auto=format&fit=crop" alt="Sub banner 2">
+                </div>
+                <div class="sub-banner-item">
+                    <img src="https://images.unsplash.com/photo-1565849904461-04a58ad377e0?w=500&auto=format&fit=crop" alt="Sub banner 3">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="side-banner banner-right">
+            <img class="img-side" src="assets/image/bannerright.jpg" alt="Banner điện thoại phải">
+        </div>
+
+    </div>
+    <br>
 </main>
-        <script>
- let slideIndex = 0;
-showSlides();
-
-function showSlides() {
-  let i;
-  let slides = document.getElementsByClassName("slide");
-  for (i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";
-  }
-  slideIndex++;
-
-  if (slideIndex > slides.length) {slideIndex = 1}
-  slides[slideIndex-1].style.display = "block";
-  setTimeout(showSlides, 2000); // Change image every 2 seconds
-}
-</script>
+<script src ="assets/js/script.js"></script>
