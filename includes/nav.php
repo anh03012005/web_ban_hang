@@ -26,20 +26,7 @@
 <ul class="location-list">
                 <li>Hồ Chí Minh</li>
                 <li class="active">Hà Nội <i class="fa-solid fa-circle-check"></i></li> 
-                <li>An Giang</li>
-                <li>Ninh Bình</li>
-                <li>Bạc Liêu</li>
-                <li>Bắc Giang</li>
-                <li>Bắc Ninh</li>
-                <li>Bến Tre</li>
-                <li>Bình Dương</li>
-                <li>Bình Định</li>
-                <li>Cà Mau</li>
-                <li>Cần Thơ</li>
-                <li>Đà Nẵng</li>
-                <li>Đắk Lắk</li>
-                <li>Đồng Nai</li>
-                <li>Đồng Tháp</li>
+               
             </ul>
                 </div>
             </div>
@@ -52,43 +39,59 @@
     </ul>
 </nav>
 <script>
+  
     // 1. Lấy các phần tử cần thiết ra để thao tác
-    const btnOpenLocation = document.querySelector('nav ul li:nth-child(3) > a'); // Nút Location trên thanh Menu
-    const modalLocation = document.querySelector('.modal-location');              // Khung popup mờ
-    const btnClose = document.querySelector('.close-btn');                        // Nút Đóng X
-    const listProvinces = document.querySelectorAll('.location-list li');         // Toàn bộ các thẻ <li> chứa tên tỉnh
+    const btnOpenLocation = document.querySelector('nav ul li:nth-child(3) > a'); 
+    const modalLocation = document.querySelector('.modal-location');              
+    const btnClose = document.querySelector('.close-btn');                        
+    const listProvinces = document.querySelectorAll('.location-list li');         
 
     // 2. Lệnh MỞ popup khi bấm vào chữ Location trên menu
     btnOpenLocation.addEventListener('click', function(event) {
-        event.preventDefault(); // Chống bị giật/nhảy trang lên đầu
-        modalLocation.style.display = 'flex'; // Hiển thị khung ra
+        event.preventDefault(); 
+        modalLocation.style.display = 'flex'; 
     });
 
     // 3. Lệnh ĐÓNG popup khi bấm nút Đóng (X)
     btnClose.addEventListener('click', function(event) {
         event.preventDefault();
-        modalLocation.style.display = 'none'; // Ẩn khung đi
+        modalLocation.style.display = 'none'; 
     });
 
     // 4. Xử lý khi bấm vào 1 Tỉnh/Thành phố bất kỳ
     listProvinces.forEach(function(province) {
         province.addEventListener('click', function() {
             
-            // Bước 4a: Đi vòng quanh xóa hết class 'active' và cái icon dấu tích ở TẤT CẢ các tỉnh
+            // Bước 4a: Xóa hết class 'active' và dấu tích ở TẤT CẢ các tỉnh
             listProvinces.forEach(function(item) {
                 item.classList.remove('active');
-                const icon = item.querySelector('i'); // Tìm xem có thẻ <i> (dấu tích) nào không
-                if (icon) {
-                    icon.remove(); // Có thì xóa đi
+                
+                // Chỉ tìm và xóa đúng icon dấu tích (tránh xóa nhầm icon khác nếu có)
+                const checkIcon = item.querySelector('.fa-circle-check'); 
+                if (checkIcon) {
+                    checkIcon.remove(); 
                 }
             });
 
-            // Bước 4b: Thêm chữ màu đỏ và gắn cái icon dấu tích vào đúng cái tỉnh mà bạn vừa bấm
+            // Bước 4b: Thêm dấu tích và class active vào tỉnh vừa bấm
             this.classList.add('active');
             this.innerHTML += ' <i class="fa-solid fa-circle-check"></i>';
 
-            // Bước 4c: (Tùy chọn) Chọn xong thì tự động đóng luôn popup cho mượt
+            // Bước 4c: Lấy tên tỉnh vừa click
+            let selectedLocation = this.textContent.trim(); 
+            
+            // Cập nhật chữ trên thẻ Location của thanh Nav
+            btnOpenLocation.innerHTML = '<i class="fa-solid fa-location-crosshairs"></i> ' + selectedLocation + ' <i class="fa-solid fa-angle-down"></i>';
+
+            // Đi tìm tất cả các chữ địa điểm trong các card sản phẩm và đổi tên
+            const shippingTexts = document.querySelectorAll('.shipping-location');
+            shippingTexts.forEach(function(shipText) {
+                shipText.textContent = selectedLocation;
+            });
+
+            // Bước 4d: Đóng popup
             modalLocation.style.display = 'none';
         });
     });
+
 </script>
