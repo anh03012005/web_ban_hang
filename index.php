@@ -1,24 +1,25 @@
 <?php
 require_once("includes/connect_db.php");
-    $sql_cats = "SELECT id, name FROM categories ORDER BY id ASC LIMIT 5";
-    $result_cats = mysqli_query($conn, $sql_cats);
+// Chỉ lấy các danh mục là con của Điện thoại (parent_id = 1)
+$sql_cats = "SELECT id, name FROM categories WHERE parent_id = 1 ORDER BY id ASC LIMIT 5";
+$result_cats = mysqli_query($conn, $sql_cats);
 
-    $where_clause = "";
-    if (isset($_GET['category_id']) && is_numeric($_GET['category_id'])) {
-        $cat_id = (int)$_GET['category_id'];
-        
-        $where_clause = "WHERE p.category_id = $cat_id 
+$where_clause = "";
+if (isset($_GET['category_id']) && is_numeric($_GET['category_id'])) {
+    $cat_id = (int)$_GET['category_id'];
+
+    $where_clause = "WHERE p.category_id = $cat_id 
                          OR p.category_id IN (SELECT id FROM categories WHERE parent_id = $cat_id)";
-    }
+}
 
-    $sql = "SELECT p.id, p.name, p.image, MIN(pv.price) as min_price 
+$sql = "SELECT p.id, p.name, p.image, MIN(pv.price) as min_price 
     FROM products p 
     LEFT JOIN product_variants pv ON p.id = pv.product_id 
     $where_clause
     GROUP BY p.id 
     ORDER BY p.id DESC
     LIMIT 8";
-    $result = mysqli_query($conn, $sql);
+$result = mysqli_query($conn, $sql);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -94,9 +95,9 @@ require_once("includes/connect_db.php");
 
                     if ($result_cats && mysqli_num_rows($result_cats) > 0) {
                         while ($cat = mysqli_fetch_assoc($result_cats)) {
-                            
+
                             $is_active = ($current_cat_id == $cat['id']) ? 'active' : '';
-                            
+
                             echo '<a href="?category_id=' . $cat['id'] . '#product-start" class="' . $is_active . '">' . htmlspecialchars($cat['name']) . '</a>';
                         }
                     } else {
@@ -104,7 +105,7 @@ require_once("includes/connect_db.php");
                     }
                     ?>
                 </div>
-                <a href="#" class="view-all">Xem tất cả ></a>
+                <a href="all_products.php" class="view-all">Xem tất cả ></a>
             </div>
 
             <div class="product-layout">
@@ -137,7 +138,7 @@ require_once("includes/connect_db.php");
 
                                 <div class="product-price">
                                     <span class="price-current">
-                                        <?php if($current_price != 0){ ?>
+                                        <?php if ($current_price != 0) { ?>
                                             <?= number_format($current_price, 0, ',', '.') . "đ" ?>
                                         <?php } else {
                                             echo "Liên hệ";
@@ -155,7 +156,7 @@ require_once("includes/connect_db.php");
                                     <div class="wishlist">♡ Yêu thích</div>
                                 </div>
                             </a>
-                            <?php
+                    <?php
                         }
                     } else {
                         echo "<p style='grid-column: 1 / -1; text-align: center; padding: 50px;'>Chưa có sản phẩm nào trong cửa hàng.</p>";
@@ -167,7 +168,7 @@ require_once("includes/connect_db.php");
         <section class="accessory-section">
             <div class="section-header">
                 <h2>Sắm thêm phụ kiện chất lượng</h2>
-                <a href="#" class="view-all">Xem tất cả ></a>
+                <a href="all_accessories.php" class="view-all">Xem tất cả ></a>
             </div>
             <div class="accessory-grid">
                 <div class="accessory-item">
@@ -202,7 +203,7 @@ require_once("includes/connect_db.php");
         </section>
         <br>
     </main>
-    
+
     <!-- Main content end -->
 
 
