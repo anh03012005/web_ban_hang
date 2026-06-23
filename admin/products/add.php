@@ -10,7 +10,7 @@
             
             <form action="add_work.php" class="modal_form" method="post" enctype="multipart/form-data">
                 
-                <h3 style="font-size: 16px; border-bottom: 2px solid var(--border-color); padding-bottom: 5px; margin-bottom: 15px;">1. Thông tin cơ bản</h3>
+                <h3 style="font-size: 16px; border-bottom: 2px solid var(--border-color); padding-bottom: 5px; margin-bottom: 15px;">Thông tin cơ bản</h3>
                 
                 <div style="display: flex; gap: 15px;">
                     <div style="flex: 1;">
@@ -49,59 +49,41 @@
                     </div>
                 </div>
                 
-                <h3 style="font-size: 16px; border-bottom: 2px solid var(--border-color); padding-bottom: 5px; margin-bottom: 15px;">2. Cấu hình chi tiết</h3>
-                
-                <div style="display: flex; gap: 15px;">
-                    <div style="flex: 1;">
-                        <label>Hệ điều hành</label>
-                        <input type="text" name="specs[os]" placeholder="VD: iOS 17" class="form_input">
+                <div style="margin-bottom: 20px; padding: 15px; border: 1px dashed #ccc; border-radius: 8px;">
+                    <label style="font-weight: bold; margin-bottom: 10px; display: block;">⚙️ Thông số kỹ thuật chi tiết</label>
+                    
+                    <div id="dynamic_specs">
+                        <div class="spec-row" style="display: flex; gap: 10px; margin-bottom: 10px;">
+                            <input type="text" name="spec_keys[]" placeholder="Tên thông số (VD: CPU, Công suất...)" class="form_input" style="flex: 1;">
+                            <input type="text" name="spec_values[]" placeholder="Giá trị (VD: Apple A17, 20W...)" class="form_input" style="flex: 2;">
+                            <button type="button" onclick="removeSpec(this)" style="background: var(--accent-error); color: white; border: none; padding: 0 15px; border-radius: 5px; cursor: pointer;">Xóa</button>
+                        </div>
                     </div>
-                    <div style="flex: 1;">
-                        <label>CPU (Chip xử lý)</label>
-                        <input type="text" name="specs[cpu]" placeholder="VD: Apple A17 Pro" class="form_input">
-                    </div>
+
+                    <button type="button" onclick="addSpec()" style="background: #28a745; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; margin-top: 10px;">
+                        + Thêm thông số khác
+                    </button>
                 </div>
 
-                <div style="display: flex; gap: 15px; margin-top: 15px;">
-                    <div style="flex: 1;">
-                        <label>Màn hình</label>
-                        <input type="text" name="specs[screen]" placeholder="VD: 6.7 inch, Super Retina XDR" class="form_input">
-                    </div>
-                    <div style="flex: 1;">
-                        <label>Camera</label>
-                        <input type="text" name="specs[camera]" placeholder="VD: Chính 48MP, Phụ 12MP" class="form_input">
-                    </div>
-                </div>
+                <script>
+                    function addSpec() {
+                        // Tạo ra một đoạn HTML chứa 2 ô input mới
+                        var newRow = `
+                            <div class="spec-row" style="display: flex; gap: 10px; margin-bottom: 10px;">
+                                <input type="text" name="spec_keys[]" placeholder="Tên thông số..." class="form_input" style="flex: 1;">
+                                <input type="text" name="spec_values[]" placeholder="Giá trị..." class="form_input" style="flex: 2;">
+                                <button type="button" onclick="removeSpec(this)" style="background: var(--accent-error); color: white; border: none; padding: 0 15px; border-radius: 5px; cursor: pointer;">Xóa</button>
+                            </div>
+                        `;
+                        // Nhét nó vào cuối thẻ div #dynamic_specs
+                        document.getElementById('dynamic_specs').insertAdjacentHTML('beforeend', newRow);
+                    }
 
-                <div style="display: flex; gap: 15px; margin-top: 15px;">
-                    <div style="flex: 1;">
-                        <label>RAM</label>
-                        <input type="text" name="specs[ram]" placeholder="VD: 8 GB" class="form_input">
-                    </div>
-                    <div style="flex: 1;">
-                        <label>Bộ nhớ trong (ROM)</label>
-                        <input type="text" name="specs[rom]" placeholder="VD: 256 GB" class="form_input">
-                    </div>
-                    <div style="flex: 1;">
-                        <label>Dung lượng Pin</label>
-                        <input type="text" name="specs[battery]" placeholder="VD: 4422 mAh, 20W" class="form_input">
-                    </div>
-                </div>
-
-                <div style="display: flex; gap: 15px; margin-top: 15px;">
-                    <div style="flex: 1;">
-                        <label>Loại SIM</label>
-                        <input type="text" name="specs[sim]" placeholder="VD: 1 Nano SIM & 1 eSIM" class="form_input">
-                    </div>
-                    <div style="flex: 1;">
-                        <label>Mạng di động</label>
-                        <input type="text" name="specs[network]" placeholder="VD: Hỗ trợ 5G" class="form_input">
-                    </div>
-                    <div style="flex: 1;">
-                        <label>Cổng sạc & Giao tiếp khác</label>
-                        <input type="text" name="specs[port]" placeholder="VD: Type-C, Wi-Fi 6, Bluetooth 5.3" class="form_input">
-                    </div>
-                </div>
+                    function removeSpec(buttonElement) {
+                        // Xóa dòng chứa nút bấm đó
+                        buttonElement.parentElement.remove();
+                    }
+                </script>
                 <input type="submit" name="btn_add" value="Thêm sản phẩm" class="add_button" style="margin-top: 25px; width: 100%; height: 45px; font-size: 16px;">
             </form>
         </div>

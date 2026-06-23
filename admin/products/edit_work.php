@@ -11,7 +11,23 @@
         $name = trim($_POST['prod_name']);
         $category_id = (int)$_POST['category_id'];
         
-        $specs_array = $_POST['specs']; 
+        $specs_array = [];
+        
+        if (isset($_POST['spec_keys']) && isset($_POST['spec_values'])) {
+            $keys = $_POST['spec_keys'];
+            $values = $_POST['spec_values'];
+            
+            for ($i = 0; $i < count($keys); $i++) {
+                $k = trim($keys[$i]);
+                $v = trim($values[$i]);
+                
+                if (!empty($k) && !empty($v)) {
+                    $specs_array[$k] = $v; 
+                }
+            }
+        }
+        
+        // Chuyển mảng thành chuỗi JSON
         $description_json = json_encode($specs_array, JSON_UNESCAPED_UNICODE);
 
         // --- 2. TRUY VẤN LẤY THÔNG TIN ẢNH CŨ TỪ DATABASE ---

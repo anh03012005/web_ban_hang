@@ -53,7 +53,7 @@ $categories = selectDb($conn, 'categories', '*', [], 'ORDER BY id ASC');
                     
                     <input type="hidden" name="edit_id" value="<?php echo $p['id']; ?>">
                     
-                    <h3 style="font-size: 16px; border-bottom: 2px solid var(--border-color); padding-bottom: 5px; margin-bottom: 15px;">1. Thông tin cơ bản</h3>
+                    <h3 style="font-size: 16px; border-bottom: 2px solid var(--border-color); padding-bottom: 5px; margin-bottom: 15px;">Thông tin cơ bản</h3>
                     
                     <div style="display: flex; gap: 15px;">
                         <div style="flex: 1;">
@@ -99,59 +99,48 @@ $categories = selectDb($conn, 'categories', '*', [], 'ORDER BY id ASC');
                         </div>
                     </div>
                     
-                    <h3 style="font-size: 16px; border-bottom: 2px solid var(--border-color); padding-bottom: 5px; margin-bottom: 15px;">2. Cấu hình chi tiết</h3>
+                    <div style="margin-bottom: 20px; padding: 15px; border: 1px dashed #ccc; border-radius: 8px;">
+                    <label style="font-weight: bold; margin-bottom: 10px; display: block;">⚙️ Chỉnh sửa Thông số kỹ thuật</label>
                     
-                    <div style="display: flex; gap: 15px;">
-                        <div style="flex: 1;">
-                            <label>Hệ điều hành</label>
-                            <input type="text" name="specs[os]" value="<?php echo $specs['os'] ?? ''; ?>" class="form_input" style="width: 100%;">
-                        </div>
-                        <div style="flex: 1;">
-                            <label>CPU (Chip xử lý)</label>
-                            <input type="text" name="specs[cpu]" value="<?php echo $specs['cpu'] ?? ''; ?>" class="form_input" style="width: 100%;">
-                        </div>
+                    <div id="dynamic_specs">
+                        <?php if (!empty($specs)): ?>
+                            <?php foreach ($specs as $key => $value): ?>
+                                <div class="spec-row" style="display: flex; gap: 10px; margin-bottom: 10px;">
+                                    <input type="text" name="spec_keys[]" value="<?= htmlspecialchars($key) ?>" placeholder="Tên thông số..." class="form_input" style="flex: 1;">
+                                    <input type="text" name="spec_values[]" value="<?= htmlspecialchars($value) ?>" placeholder="Giá trị..." class="form_input" style="flex: 2;">
+                                    <button type="button" onclick="removeSpec(this)" style="background: var(--accent-error); color: white; border: none; padding: 0 15px; border-radius: 5px; cursor: pointer;">Xóa</button>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <div class="spec-row" style="display: flex; gap: 10px; margin-bottom: 10px;">
+                                <input type="text" name="spec_keys[]" placeholder="Tên thông số (VD: CPU, Công suất...)" class="form_input" style="flex: 1;">
+                                <input type="text" name="spec_values[]" placeholder="Giá trị (VD: Apple A17, 20W...)" class="form_input" style="flex: 2;">
+                                <button type="button" onclick="removeSpec(this)" style="background: var(--accent-error); color: white; border: none; padding: 0 15px; border-radius: 5px; cursor: pointer;">Xóa</button>
+                            </div>
+                        <?php endif; ?>
                     </div>
 
-                    <div style="display: flex; gap: 15px; margin-top: 15px;">
-                        <div style="flex: 1;">
-                            <label>Màn hình</label>
-                            <input type="text" name="specs[screen]" value="<?php echo $specs['screen'] ?? ''; ?>" class="form_input" style="width: 100%;">
-                        </div>
-                        <div style="flex: 1;">
-                            <label>Camera</label>
-                            <input type="text" name="specs[camera]" value="<?php echo $specs['camera'] ?? ''; ?>" class="form_input" style="width: 100%;">
-                        </div>
-                    </div>
+                    <button type="button" onclick="addSpec()" style="background: #28a745; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; margin-top: 10px;">
+                        + Thêm thông số khác
+                    </button>
+                </div>
 
-                    <div style="display: flex; gap: 15px; margin-top: 15px;">
-                        <div style="flex: 1;">
-                            <label>RAM</label>
-                            <input type="text" name="specs[ram]" value="<?php echo $specs['ram'] ?? ''; ?>" class="form_input" style="width: 100%;">
-                        </div>
-                        <div style="flex: 1;">
-                            <label>Bộ nhớ trong (ROM)</label>
-                            <input type="text" name="specs[rom]" value="<?php echo $specs['rom'] ?? ''; ?>" class="form_input" style="width: 100%;">
-                        </div>
-                        <div style="flex: 1;">
-                            <label>Dung lượng Pin</label>
-                            <input type="text" name="specs[battery]" value="<?php echo $specs['battery'] ?? ''; ?>" class="form_input" style="width: 100%;">
-                        </div>
-                    </div>
+                    <script>
+                        function addSpec() {
+                            var newRow = `
+                                <div class="spec-row" style="display: flex; gap: 10px; margin-bottom: 10px;">
+                                    <input type="text" name="spec_keys[]" placeholder="Tên thông số..." class="form_input" style="flex: 1;">
+                                    <input type="text" name="spec_values[]" placeholder="Giá trị..." class="form_input" style="flex: 2;">
+                                    <button type="button" onclick="removeSpec(this)" style="background: var(--accent-error); color: white; border: none; padding: 0 15px; border-radius: 5px; cursor: pointer;">Xóa</button>
+                                </div>
+                            `;
+                            document.getElementById('dynamic_specs').insertAdjacentHTML('beforeend', newRow);
+                        }
 
-                    <div style="display: flex; gap: 15px; margin-top: 15px;">
-                        <div style="flex: 1;">
-                            <label>Loại SIM</label>
-                            <input type="text" name="specs[sim]" value="<?php echo $specs['sim'] ?? ''; ?>" class="form_input" style="width: 100%;">
-                        </div>
-                        <div style="flex: 1;">
-                            <label>Mạng di động</label>
-                            <input type="text" name="specs[network]" value="<?php echo $specs['network'] ?? ''; ?>" class="form_input" style="width: 100%;">
-                        </div>
-                        <div style="flex: 1;">
-                            <label>Cổng sạc & Giao tiếp khác</label>
-                            <input type="text" name="specs[port]" value="<?php echo $specs['port'] ?? ''; ?>" class="form_input" style="width: 100%;">
-                        </div>
-                    </div>
+                        function removeSpec(buttonElement) {
+                            buttonElement.parentElement.remove();
+                        }
+                    </script>
                     
                     <input type="submit" name="btn_edit" value="Lưu thay đổi" class="add_button" style="margin-top: 25px; width: 100%; height: 45px; font-size: 16px;">
                 </form>

@@ -11,7 +11,24 @@
 
 
         // --- ĐÓNG GÓI THÔNG SỐ CẤU HÌNH (JSON) ---
-        $specs_array = $_POST['specs']; 
+        $specs_array = [];
+        
+        // Kiểm tra xem có mảng key và value được gửi lên không
+        if (isset($_POST['spec_keys']) && isset($_POST['spec_values'])) {
+            $keys = $_POST['spec_keys'];
+            $values = $_POST['spec_values'];
+            
+            // Lặp qua để ghép cặp (Ví dụ: "Công suất" => "20W")
+            for ($i = 0; $i < count($keys); $i++) {
+                $k = trim($keys[$i]);
+                $v = trim($values[$i]);
+                
+                // Tránh lưu những dòng trống mà người dùng lỡ bấm thêm nhưng không nhập
+                if (!empty($k) && !empty($v)) {
+                    $specs_array[$k] = $v; 
+                }
+            }
+        }
         $description_json = json_encode($specs_array, JSON_UNESCAPED_UNICODE);
 
 
